@@ -1,4 +1,9 @@
 {
-    "inventory": {},
+    "inventory": {
+        "Marago Chiapas": {
+            "roast_level": "light",
+            "weight_g": 200
+        }
+    },
     "history": []
 }
