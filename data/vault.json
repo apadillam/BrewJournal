@@ -1,16 +1,10 @@
 {
     "inventory": {
         "Marago Chiapas": {
-            "roast_level": "light",
-            "tasting_notes": "berry",
-            "purchase_date": "2026-01-12",
-            "weight_g": 20
-        },
-        "Stale Coffee Test": {
             "roast_level": "medium",
-            "tasting_notes": "Dirt",
-            "purchase_date": "2026-06-12",
-            "weight_g": 150
+            "tasting_notes": "Balanced profile",
+            "purchase_date": "2026-06-13",
+            "weight_g": 50000
         }
     },
     "history": [],
@@ -18,26 +12,19 @@
         "Marago V60 Personal": {
             "bean_name": "Marago Chiapas",
             "brew_method": "V60",
-            "ratio": 16,
-            "grind_setting": "Lvl 1, Coarse (Chefman)",
-            "coffee_g": 19,
-            "water_ml": 304,
+            "ratio": 16.0,
+            "coffee_g": 9,
+            "water_ml": 144,
+            "grind_setting": "5",
             "water_temp_c": 92,
             "bloom_time_s": 40,
-            "target_time": "2:44",
-            "notes": "Constant Circles on first pour after bloom, and a thin water string in the center of the funnel for second part of pur."
-        },
-        "Stalelicious": {
-            "bean_name": "Stale Coffee Test",
-            "brew_method": "Espresso",
-            "ratio": 19.0,
-            "coffee_g": 16,
-            "water_ml": 304,
-            "grind_setting": "fine AF",
-            "water_temp_c": 98,
-            "bloom_time_s": 0,
-            "target_time": "03:00",
-            "notes": "testtest"
+            "target_time": "3",
+            "notes": "non",
+            "created_at": "2026-06-13 21:43"
         }
+    },
+    "settings": {
+        "min_variety_expected": 2,
+        "low_stock_threshold_g": 100
     }
 }
