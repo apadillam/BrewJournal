@@ -1,54 +1,144 @@
 {
     "settings": {
-        "low_stock_threshold_g": 100,
+        "low_stock_threshold_g": 75,
         "min_variety_expected": 3
     },
     "inventory": {
-        "Ethiopia Yirgacheffe": {
+        "Ethiopia Sidama Bensa": {
             "roast_level": "light",
-            "tasting_notes": "Jasmine, Bergamot, Blueberry",
-            "purchase_date": "2026-06-01",
+            "tasting_notes": "Raspberry Jam, White Peach, Earl Grey",
+            "purchase_date": "2026-06-10",
+            "weight_g": 220
+        },
+        "Colombia Pink Bourbon (Anoxic)": {
+            "roast_level": "medium",
+            "tasting_notes": "Passionfruit, Cinnamon Bun, Milk Chocolate",
+            "purchase_date": "2026-05-24",
+            "weight_g": 85
+        },
+        "Sumatra Mandheling Vintage": {
+            "roast_level": "dark",
+            "tasting_notes": "Brown Sugar, Molasses, Smoke, Cedar",
+            "purchase_date": "2026-03-15",
+            "weight_g": 450
+        },
+        "Chiapas Marago": {
+            "roast_level": "medium",
+            "tasting_notes": "Chocolate, silky & clean body, balanced profile",
+            "purchase_date": "2026-03-26",
             "weight_g": 250
         },
-        "Colombia San Alberto": {
+        "Chiapas Exportacion": {
             "roast_level": "medium",
-            "tasting_notes": "Honey, Crisp Green Apple, Caramel",
-            "purchase_date": "2026-04-01",
-            "weight_g": 45
+            "tasting_notes": "Citric, Red Fruits, High flavor intensity",
+            "purchase_date": "2026-04-14",
+            "weight_g": 150
         },
-        "Old Forgotten Sumatra": {
+        "Puebla Kapani": {
             "roast_level": "dark",
-            "tasting_notes": "Earthy, Cedar, Dark Chocolate Shavings",
-            "purchase_date": "2026-02-10",
-            "weight_g": 500
+            "tasting_notes": "Very Sweet, Excellent Body, Dense Silky Texture",
+            "purchase_date": "2026-04-14",
+            "weight_g": 250
         }
     },
     "recipes": {
-        "Morning V60 Bloom": {
-            "bean_name": "Ethiopia Yirgacheffe",
+        "Morning Ice-Brew V60": {
+            "bean_name": "Ethiopia Sidama Bensa",
             "brew_method": "V60",
-            "ratio": 16.5,
-            "coffee_g": 15,
-            "water_ml": 248,
-            "grind_setting": "22 Clicks (Medium-Fine)",
-            "water_temp_c": 94,
-            "bloom_time_s": 45,
-            "target_time": "03:15",
-            "notes": "Pour in slow, concentric circles. Swirl gently during the bloom.",
-            "created_at": "2026-06-13 08:30"
-        },
-        "Quick Desktop Aero": {
-            "bean_name": "Colombia San Alberto",
-            "brew_method": "Aeropress",
             "ratio": 15.0,
-            "coffee_g": 12,
-            "water_ml": 180,
-            "grind_setting": "16 Clicks (Medium)",
-            "water_temp_c": 89,
+            "coffee_g": 20,
+            "water_ml": 300,
+            "grind_setting": "20 Clicks (Medium-Fine)",
+            "water_temp_c": 95,
+            "bloom_time_s": 45,
+            "target_time": "02:45",
+            "notes": "120g of ice pre-loaded in server. Pour remaining 180g hot water rapidly over bed.",
+            "created_at": "2026-06-14 08:15",
+            "rating": 5
+        },
+        "Midday Aero Press-Down": {
+            "bean_name": "Colombia Pink Bourbon (Anoxic)",
+            "brew_method": "Aeropress",
+            "ratio": 16.0,
+            "coffee_g": 15,
+            "water_ml": 240,
+            "grind_setting": "14 Clicks (Fine-Medium)",
+            "water_temp_c": 91,
+            "bloom_time_s": 30,
+            "target_time": "02:10",
+            "notes": "Standard orientation. 3 active gentle stirs at bloom phase to incorporate gas channels.",
+            "created_at": "2026-06-13 13:40",
+            "rating": 4
+        },
+        "Marago V60 personal": {
+            "bean_name": "Chiapas Marago",
+            "brew_method": "V60",
+            "ratio": 16.0,
+            "coffee_g": 19,
+            "water_ml": 304,
+            "grind_setting": "Level 1 (fine/medium)",
+            "water_temp_c": 92,
+            "bloom_time_s": 40,
+            "target_time": "02:44",
+            "notes": "40ml for bloom. Remove filter exactly at cutoff for a chocolatey, clean cup without biterness.",
+            "rating": 4,
+            "created_at": "2026-06-14 21:03"
+        },
+        "Exportacion V60 personal": {
+            "bean_name": "Chiapas Exportacion",
+            "brew_method": "V60",
+            "ratio": 16.0,
+            "coffee_g": 19,
+            "water_ml": 304,
+            "grind_setting": "Level 6 (Medium-Coarse)",
+            "water_temp_c": 88,
+            "bloom_time_s": 40,
+            "target_time": "02:30",
+            "notes": "60ml for Bloom. Coarser grind and lower temp to break the high density of the bean and avoiding over-extraction.",
+            "rating": 4,
+            "created_at": "2026-06-14 21:07"
+        },
+        "Kapani French Press for two": {
+            "bean_name": "Puebla Kapani",
+            "brew_method": "French Press",
+            "ratio": 15.0,
+            "coffee_g": 40,
+            "water_ml": 600,
+            "grind_setting": "Level 2 (Medium)",
+            "water_temp_c": 92,
+            "bloom_time_s": 30,
+            "target_time": "05:00",
+            "notes": "100ml pre-infusion (bloom) Plunge down slowly and pour the full pither immediately to avoid biterness.",
+            "rating": 5,
+            "created_at": "2026-06-14 21:12"
+        },
+        "Exportacion V60 for two": {
+            "bean_name": "Chiapas Exportacion",
+            "brew_method": "V60",
+            "ratio": 16.0,
+            "coffee_g": 38,
+            "water_ml": 608,
+            "grind_setting": "Level 2 (Medium)",
+            "water_temp_c": 88,
+            "bloom_time_s": 45,
+            "target_time": "04:30",
+            "notes": "60ml for bloom. Cut-off at 4:30 is critical to avoid that the large volume extracts heavy compounds.",
+            "rating": 3,
+            "created_at": "2026-06-14 21:15"
+        },
+        "Marago Italian Small Shot": {
+            "bean_name": "Chiapas Marago",
+            "brew_method": "Italian/Moka",
+            "ratio": 10.0,
+            "coffee_g": 10,
+            "water_ml": 100,
+            "grind_setting": "Level 3 (Fine)",
+            "water_temp_c": 90,
             "bloom_time_s": 0,
-            "target_time": "01:30",
-            "notes": "Inverted method. Stir 10 times rapidly, then execute a slow 30-second press.",
-            "created_at": "2026-06-12 14:15"
+            "target_time": "02:00",
+            "notes": "Brew time may vary. Boil water and put it in the base, then assemble and put in the butrner. Remove from fire and serve when foam is clear or starts 'spitting'.",
+            "rating": 4,
+            "created_at": "2026-06-14 21:18"
         }
     }
 }

@@ -195,7 +195,7 @@ def manage_bean_stock(vault_data):
             break
 
 def manage_formulas(vault_data):
-    """Screen [3]: Advanced extraction recipes with automated math and timestamps."""
+    """Screen [3]: Advanced extraction recipes with integrated loop-level quality score matrix evaluations."""
     inventory = vault_data.get("inventory", {})
     recipes = vault_data.get("recipes", {})
     
@@ -212,8 +212,12 @@ def manage_formulas(vault_data):
             for formula_name, details in recipes.items():
                 linked_bean = details.get("bean_name", "Unknown Bean")
                 
+                # --- CORRECT LOOP INTEGRITY PLACEMENT FOR RATING METRIC ---
+                stars = "⭐" * details.get("rating", 5)
+                
                 print(f" 📂 Formula: {formula_name} [{details.get('brew_method', 'V60').upper()}]")
                 print(f"    ├─ Logged Timestamp   : {details.get('created_at', 'N/A')}")
+                print(f"    ├─ Evaluation Metric  : Quality Score: {stars} ({details.get('rating', 5)}/5)")
                 
                 # --- FIXED RELATIONAL ERROR SAFEGUARD ---
                 if linked_bean in inventory:
@@ -290,6 +294,14 @@ def manage_formulas(vault_data):
             target_time = input("Ideal Total Brew Time (MM:SS): ").strip()
             comments = input("Instructions / Comments: ").strip()
             
+            while True:
+                try:
+                    rating = int(input("Extraction Score / Rating [1-5 Stars]: ").strip())
+                    if 1 <= rating <= 5: break
+                    print("[Error] Rating must fall within the 1-5 matrix constraint limits.")
+                except ValueError:
+                    print("[Error] Enter a valid whole integer.")
+
             # --- AUTOMATED TIMESTAMP GENERATION ---
             timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M")
             
@@ -304,7 +316,8 @@ def manage_formulas(vault_data):
                 "bloom_time_s": bloom_s,
                 "target_time": target_time if target_time else "03:00",
                 "notes": comments if comments else "Standard extraction profile.",
-                "created_at": timestamp_str # Inject structural timestamp metadata
+                "rating": rating,
+                "created_at": timestamp_str
             }
             
             vault_data["recipes"] = recipes
@@ -324,7 +337,7 @@ def manage_formulas(vault_data):
             break
 
 def view_exploration_ledger(vault_data):
-    """Screen [1]: Reads, sorts chronologically, and summarizes all archived recipes."""
+    """Screen [1]: Reads, sorts chronologically, and summarizes all archived recipes with star metrics."""
     recipes = vault_data.get("recipes", {})
     inventory = vault_data.get("inventory", {})
     
@@ -339,7 +352,6 @@ def view_exploration_ledger(vault_data):
         print(f"Total Logged Sessions: {len(recipes)}\n")
         
         # --- CHRONOLOGICAL SORTING MATRIX ---
-        # Sort recipes by their internal 'created_at' timestamp string, newest first
         sorted_recipes = sorted(
             recipes.items(),
             key=lambda item: item[1].get("created_at", ""),
@@ -350,7 +362,11 @@ def view_exploration_ledger(vault_data):
             linked_bean = details.get("bean_name", "Unknown Bean")
             timestamp = details.get("created_at", "N/A")
             
+            # --- FIXED CONTEXT LOCATION FOR STAR MATRIX ---
+            stars = "⭐" * details.get("rating", 5)
+            
             print(f" 📅 [{timestamp}] - Formula: {name} ({details.get('brew_method', 'V60').upper()})")
+            print(f"    ├─ Evaluation  : Quality Score: {stars}")
             print(f"    ├─ Target Math : 1:{details.get('ratio')} Ratio | {details.get('coffee_g')}g ➡️ {details.get('water_ml')}ml")
             
             # Relational Integrity Check
@@ -414,6 +430,91 @@ def manage_settings(vault_data):
         elif choice == "3":
             break
 
+def screen_ai_barista(vault):
+    """Screen 5: The Local AI Barista Coach Heuristic Recommender Engine."""
+    while True:
+        print("\n" + "="*60)
+        print("🤖 AI BARISTA COACH MATRIX — CORE RECOMMENDATION ENGINE")
+        print("="*60)
+        print("[1] Query Flavor Notes (AI Substring Semantic Match)")
+        print("[2] Analyze Roast Extraction Temps (Thermal Optimization)")
+        print("[3] Run Stock Decay & Bake-Off Assessment (Urgent Beans)")
+        print("[4] Return to Main Menu")
+        print("-"*60)
+        
+        choice = input("Select optimization analysis vector [1-4]: ").strip()
+        
+        inventory = vault.get("inventory", {})
+        recipes = vault.get("recipes", {})
+        
+        if choice == "1":
+            print("\n🔍 --- Vector 1: Flavor Note Semantic Search ---")
+            keyword = input("What flavor profile are you craving? (e.g., Blueberry, Caramel, Chocolate): ").strip().lower()
+            found = False
+            for name, profile in inventory.items():
+                if keyword in profile.get("tasting_notes", "").lower():
+                    print(f"\n💡 AI RECOMMENDATION: Brew the [{name}]!")
+                    print(f"   • Roast Level: {profile['roast_level'].upper()}")
+                    print(f"   • Notes Detected: {profile['tasting_notes']}")
+                    
+                    # Relational lookup for matching recipes
+                    matched_recipes = [r_name for r_name, r_data in recipes.items() if r_data.get("bean_name") == name]
+                    if matched_recipes:
+                        print(f"   • Optimized Extraction Channels Found: {', '.join(matched_recipes)}")
+                    else:
+                        print("   • Alert: No recipes built for this bean yet. Time to log a new formula!")
+                    found = True
+            if not found:
+                print(f"\n❌ No active bean profiles match the keyword: '{keyword}'")
+                
+        elif choice == "2":
+            print("\n🔥 --- Vector 2: Thermal Extraction Audit ---")
+            if not recipes:
+                print("❌ No preparation formulas found to analyze.")
+                continue
+            print("\nAnalyzing recipe temperature profiles against roast baselines...")
+            for r_name, r_data in recipes.items():
+                bean = r_data.get("bean_name")
+                temp = r_data.get("water_temp_c", 0)
+                bean_profile = inventory.get(bean, {})
+                roast = bean_profile.get("roast_level", "unknown").lower()
+                
+                print(f"\n📋 Recipe: {r_name} ({bean} - {roast.upper()} roast)")
+                if roast == "light" and temp < 93:
+                    print(f"   ⚠️ AI COACH WARNING: Temperature is set to {temp}°C. Light roasts are dense and require high thermal energy (93°C-96°C) to prevent under-extraction and sourness.")
+                elif roast == "dark" and temp > 90:
+                    print(f"   ⚠️ AI COACH WARNING: Temperature is set to {temp}°C. Dark roasts expose fragile carbon structures; water above 90°C risks heavy bitterness and ash flavors. Drop temp to 85°C-89°C.")
+                else:
+                    print(f"   ✅ Ideal Thermal Target: {temp}°C is well-calibrated for this roast profile matrix.")
+                    
+        elif choice == "3":
+            print("\n⏳ --- Vector 3: Age & Decay Bake-Off Audit ---")
+            if not inventory:
+                print("❌ Your inventory matrix is currently empty.")
+                continue
+            print("\nScanning chronological decay fields...")
+            today = date.today()
+            for name, profile in inventory.items():
+                try:
+                    p_date = datetime.strptime(profile.get("purchase_date", ""), "%Y-%m-%d").date()
+                    age_days = (today - p_date).days
+                except ValueError:
+                    age_days = 0
+                
+                print(f"\n☕ {name}: Purchased {age_days} days ago.")
+                if age_days > 45:
+                    print(f"   🚨 CRITICAL DECAY: This lot is severely oxidized (past 45-day peak freshness window).")
+                    print(f"   💡 AI BAKE-OFF ACTION: Grind slightly finer to increase resistance, decrease ratio to 1:15, and use it up immediately!")
+                elif profile.get("weight_g", 0) < vault.get("settings", {}).get("low_stock_threshold_g", 100):
+                    print(f"   ⚠️ LOW VOLUME WARNING: Only {profile['weight_g']}g remains. Perfect for a single final, highly precise extraction sequence.")
+                else:
+                    print("   ✅ Current inventory stability remains nominal.")
+                    
+        elif choice == "4":
+            break
+        else:
+            print("❌ Invalid entry vector. Select 1-4.")
+
 def main():
     # Load your persistent storage matrix once at program initialization
     vault_data = load_vault()
@@ -439,12 +540,13 @@ def main():
         print("\nMAIN MENU OPERATIONAL VECTORS:")
         print(" [1] Read Exploration Ledger (Review Logs)")
         print(" [2] Manage Coffee Bean Stock (Write/Modify Inventory)")
-        print(" [3] Manage Preparation Formulas & cup logs (Write/Modify)")
+        print(" [3] Manage Preparation Formulas & Cup Logs (Write/Modify)")
         print(" [4] Edit System Notification Configurations")
-        print(" [5] Sync Database & Shutdown System")
+        print(" [5] Consult Local 'AI Barista Coach' Heuristic Recommender Engine")
+        print(" [6] Sync Database & Shutdown System")
         print("-" * 65)
         
-        choice = input("Select operation vector [1-5]: ").strip()
+        choice = input("Select operation vector [1-6]: ").strip()
         
         if choice == "1":
             # Fire Screen 1 Exploration Ledger
@@ -457,14 +559,15 @@ def main():
             # Fire Screen 4 Configuration Matrix
             manage_settings(vault_data)            
         elif choice == "5":
+            # Fire Screen 5 AI Barista Coach
+            screen_ai_barista(vault_data)
+        elif choice == "6":
             save_vault(vault_data)
             print("\n💾 State machine flushed to disk storage safely. Terminal footprint clear.")
             print("Goodbye!\n")
             break
         else:
             input("\n[WARN] Invalid choice token vector. Press Enter to clear buffer...")
-
-
 
 if __name__ == "__main__":
     main()
